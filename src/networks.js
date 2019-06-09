@@ -33,3 +33,15 @@ exports.testnet = {
   scriptHash: 0xc4,
   wif: 0xef,
 };
+exports.radium = {
+       messagePrefix: 'radium Signed Message:\n',
+       bech32: 'tb',
+       bip32: {
+           public: 0x043587cf,
+           private: 0x04358394
+       },
+    pubKeyHash: 0x4c,
+    scriptHash: 0x3a,
+    wif: 0x79,
+    
+  };

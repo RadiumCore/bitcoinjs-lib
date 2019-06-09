@@ -42,6 +42,7 @@ function isOutput(out) {
 class Transaction {
   constructor() {
     this.version = 1;
+    this.time = 0;
     this.locktime = 0;
     this.ins = [];
     this.outs = [];
@@ -83,6 +84,8 @@ class Transaction {
     }
     const tx = new Transaction();
     tx.version = readInt32();
+    //tx time required for Radium
+    tx.time = readUInt32();
     const marker = buffer.readUInt8(offset);
     const flag = buffer.readUInt8(offset + 1);
     let hasWitnesses = false;
@@ -192,6 +195,7 @@ class Transaction {
   clone() {
     const newTx = new Transaction();
     newTx.version = this.version;
+    newTx.time = this.time;
     newTx.locktime = this.locktime;
     newTx.ins = this.ins.map(txIn => {
       return {
@@ -351,6 +355,7 @@ class Transaction {
     toffset = 0;
     const input = this.ins[inIndex];
     writeUInt32(this.version);
+    writeUInt32(this.time);
     writeSlice(hashPrevouts);
     writeSlice(hashSequence);
     writeSlice(input.hash);
@@ -389,7 +394,7 @@ class Transaction {
   __byteLength(_ALLOW_WITNESS) {
     const hasWitnesses = _ALLOW_WITNESS && this.hasWitnesses();
     return (
-      (hasWitnesses ? 10 : 8) +
+      (hasWitnesses ? 14 : 12) +
       varuint.encodingLength(this.ins.length) +
       varuint.encodingLength(this.outs.length) +
       this.ins.reduce((sum, input) => {
@@ -436,6 +441,7 @@ class Transaction {
       vector.forEach(writeVarSlice);
     }
     writeInt32(this.version);
+    writeUInt32(this.time);
     const hasWitnesses = _ALLOW_WITNESS && this.hasWitnesses();
     if (hasWitnesses) {
       writeUInt8(Transaction.ADVANCED_TRANSACTION_MARKER);
