@@ -1,24 +1,24 @@
-# BitcoinJS (bitcoinjs-lib)
-[![Build Status](https://travis-ci.org/bitcoinjs/bitcoinjs-lib.png?branch=master)](https://travis-ci.org/bitcoinjs/bitcoinjs-lib)
-[![NPM](https://img.shields.io/npm/v/bitcoinjs-lib.svg)](https://www.npmjs.org/package/bitcoinjs-lib)
+# RadiumJS (radiumjs-lib)
+[![Build Status](https://travis-ci.org/radiumjs/radiumjs-lib.png?branch=master)](https://travis-ci.org/radiumjs/radiumjs-lib)
+[![NPM](https://img.shields.io/npm/v/radiumjs-lib.svg)](https://www.npmjs.org/package/radiumjs-lib)
 
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-A javascript Bitcoin library for node.js and browsers. Written in TypeScript, but committing the JS files to verify.
+A javascript radium library for node.js and browsers. Written in TypeScript, but committing the JS files to verify.
 
 Released under the terms of the [MIT LICENSE](LICENSE).
 
 ## Should I use this in production?
 If you are thinking of using the *master* branch of this library in production, **stop**.
-Master is not stable; it is our development branch, and [only tagged releases may be classified as stable](https://github.com/bitcoinjs/bitcoinjs-lib/tags).
+Master is not stable; it is our development branch, and [only tagged releases may be classified as stable](https://github.com/radiumjs/radiumjs-lib/tags).
 
 
 ## Can I trust this code?
 > Don't trust. Verify.
 
-We recommend every user of this library and the [bitcoinjs](https://github.com/bitcoinjs) ecosystem audit and verify any underlying code for its validity and suitability,  including reviewing any and all of your project's dependencies.
+We recommend every user of this library and the [radiumjs](https://github.com/radiumjs) ecosystem audit and verify any underlying code for its validity and suitability,  including reviewing any and all of your project's dependencies.
 
-Mistakes and bugs happen, but with your help in resolving and reporting [issues](https://github.com/bitcoinjs/bitcoinjs-lib/issues), together we can produce open source software that is:
+Mistakes and bugs happen, but with your help in resolving and reporting [issues](https://github.com/radiumjs/radiumjs-lib/issues), together we can produce open source software that is:
 
 - Easy to audit and verify,
 - Tested, with test coverage >95%,
@@ -28,12 +28,12 @@ Mistakes and bugs happen, but with your help in resolving and reporting [issues]
 
 
 ## Documentation
-Presently,  we do not have any formal documentation other than our [examples](#examples), please [ask for help](https://github.com/bitcoinjs/bitcoinjs-lib/issues/new) if our examples aren't enough to guide you.
+Presently,  we do not have any formal documentation other than our [examples](#examples), please [ask for help](https://github.com/radiumjs/radiumjs-lib/issues/new) if our examples aren't enough to guide you.
 
 
 ## Installation
 ``` bash
-npm install bitcoinjs-lib
+npm install --save RadiumCore/radiumjs-lib#master
 ```
 
 Typically we support the [Node Maintenance LTS version](https://github.com/nodejs/Release).

@@ -1,18 +1,18 @@
 {
-  "name": "bitcoinjs-lib",
+  "name": "radiumjs-lib",
   "version": "5.0.5",
-  "description": "Client-side Bitcoin JavaScript library",
+  "description": "Client-side Radium JavaScript library",
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
   "engines": {
     "node": ">=8.0.0"
   },
   "keywords": [
-    "bitcoinjs",
+    "radiumjs",
     "bitcoin",
     "browserify",
     "javascript",
-    "bitcoinjs"
+    "radiumjs"
   ],
   "scripts": {
     "build": "npm run clean && tsc -p ./tsconfig.json && npm run formatjs",
@@ -38,7 +38,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/bitcoinjs/bitcoinjs-lib.git"
+    "url": "https://github.com/RadiumCore/radiumjs-lib.git"
   },
   "files": [
     "src",
