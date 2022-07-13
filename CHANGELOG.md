@@ -1,3 +1,88 @@
+# 6.0.0
+__removed__
+- bip32: Removed the re-export. Please add as dependency to your app instead.
+- ECPair: Please use bip32 moving forward. ecpair package was created for those who need it.
+- TransactionBuilder: Any internal files used only in TB (classify, templates, etc.) were also removed.
+
+__added__
+- taproot segwit v1 address support (bech32m) via address module (#1676)
+- hashForWitnessV1 method on Transaction class (#1745)
+
+__fixed__
+- Transaction version read/write differed. (#1717)
+
+# 5.2.0
+__changed__
+- Updated PSBT to allow for witnessUtxo and nonWitnessUtxo simultaneously (Re: segwit psbt bug) (#1563)
+
+__added__
+- PSBT methods `getInputType`, `inputHasPubkey`, `inputHasHDKey`, `outputHasPubkey`, `outputHasHDKey` (#1563)
+
+# 5.1.10
+__fixed__
+- Fixed psbt.signInputAsync (and consequentially all Async signing methods) not handling rejection of keypair.sign properly (#1582)
+
+# 5.1.9
+__fixed__
+- Fixed errors for psbt.txOutputs getter (#1578)
+
+# 5.1.8
+__fixed__
+- Throw errors when p2wsh or p2wpkh contain uncompressed pubkeys (#1573)
+
+__added__
+- Add txInputs and txOutputs for Psbt (#1561)
+
+__changed__
+- (Not exposed) Added BufferWriter to help ease maintenance of certain forks of this library (#1533)
+
+# 5.1.7
+__fixed__
+- Fixed Transaction class Output interface typing for TypeScript (#1506)
+- Add `weight()` to Block class, add optional includeWitness arg to Transaction byteLength method (#1515)
+- Match the old TransactionBuilder behavior of allowing for multiple instances of the same pubkey to be in a p2ms script for PSBT (#1519)
+
+__added__
+- Allow the API consumer to pass in the finalizer functions to allow for any type of transaction to be finalized. It places the most crucial part of transaction construction on the consumer, and should be used with caution. (#1491)
+
+# 5.1.6
+__fixed__
+- `PsbtOutputExtended` did not support using the address attribute properly. It is now fixed.
+
+# 5.1.5
+__added__
+- `Psbt` now has `getFee(): number` for use when all inputs are finalized. It returns the satoshi fee of the transaction. Calling getFee, getFeeRate, or extractTransaction will cache these values so if you call one after the other, the second call will return immediately.
+
+# 5.1.4
+__changed__
+- `Psbt` inputs using segwit scripts can now work with nonWitnessUtxo as well as the original witnessUtxo. The reasoning for this is that nonWitnessUtxo has all the information contained in the witnessUtxo, so rejecting signing even though we have all the info we need is unnecessary. Trying to sign a non-segwit script with a witnessUtxo will still throw an Error as it should.
+
+# 5.1.3
+__changed__
+- TypeScript types: Made Signer and SignerAsync use any for network since we only check for equivalence. (#1448)
+- TypeScript types: Made the args for addInput and addOutput for Psbt actually accept updateInput and updateOutput parameters. (#1449)
+
+# 5.1.2
+__added__
+- `ECPair` and `bip32` objects now have a lowR boolean attribute defaulted to false. You may set it to true to ensure that the sign method uses low R values (#1442) (This is to enable low R usage in Psbt, since we decided not to give the low R flag to the Psbt class, since it makes more sense to be an attribute of the Signer interface)
+
+# 5.1.1
+__changed__
+- Name inconsistencies for Psbt class. (Quick fix)
+
+# 5.1.0
+__added__
+- A new `Psbt` class for creating, distributing, combining, signing, and compiling Transactions (#1425)
+- A `name` attribute to the Payment interface. P2SH and P2WSH are nested with `'-'` as separator, and p2ms is in the format of `'p2ms(m of n)''` all others are just hard coded. (#1433)
+
+__changed__
+- `TransactionBuilder`: Migrate to stricter type checks during sign by switching to a single object parameter (#1416)
+- `tests`: Use regtest-client as separate library (#1421)
+
+# 5.0.5
+__added__
+- Added `ECPairInterface` `Stack` and `StackElement` interfaces to the main index.ts export (TypeScript only affected)
+
 # 5.0.4
 __added__
 - low R value support for ECPair, bip32, and TransactionBuilder (default off) via `txb.setLowR()` (#1385)

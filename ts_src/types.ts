@@ -1,4 +1,29 @@
-const typeforce = require('typeforce');
+import { Buffer as NBuffer } from 'buffer';
+export const typeforce = require('typeforce');
+
+const ZERO32 = NBuffer.alloc(32, 0);
+const EC_P = NBuffer.from(
+  'fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f',
+  'hex',
+);
+export function isPoint(p: Buffer | number | undefined | null): boolean {
+  if (!NBuffer.isBuffer(p)) return false;
+  if (p.length < 33) return false;
+
+  const t = p[0];
+  const x = p.slice(1, 33);
+  if (x.compare(ZERO32) === 0) return false;
+  if (x.compare(EC_P) >= 0) return false;
+  if ((t === 0x02 || t === 0x03) && p.length === 33) {
+    return true;
+  }
+
+  const y = p.slice(33);
+  if (y.compare(ZERO32) === 0) return false;
+  if (y.compare(EC_P) >= 0) return false;
+  if (t === 0x04 && p.length === 65) return true;
+  return false;
+}
 
 const UINT31_MAX: number = Math.pow(2, 31) - 1;
 export function UInt31(value: number): boolean {
@@ -11,6 +36,14 @@ export function BIP32Path(value: string): boolean {
 BIP32Path.toJSON = (): string => {
   return 'BIP32 derivation path';
 };
+
+export function Signer(obj: any): boolean {
+  return (
+    (typeforce.Buffer(obj.publicKey) ||
+      typeof obj.getPublicKey === 'function') &&
+    typeof obj.sign === 'function'
+  );
+}
 
 const SATOSHI_MAX: number = 21 * 1e14;
 export function Satoshi(value: number): boolean {

@@ -8,6 +8,7 @@ import { p2wpkh } from './p2wpkh';
 import { p2wsh } from './p2wsh';
 
 export interface Payment {
+  name?: string;
   network?: Network;
   output?: Buffer;
   data?: Buffer[];
@@ -23,6 +24,8 @@ export interface Payment {
   redeem?: Payment;
   witness?: Buffer[];
 }
+
+export type PaymentCreator = (a: Payment, opts?: PaymentOpts) => Payment;
 
 export type PaymentFunction = () => Payment;
 

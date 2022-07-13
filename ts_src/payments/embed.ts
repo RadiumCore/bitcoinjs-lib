@@ -1,9 +1,9 @@
 import { bitcoin as BITCOIN_NETWORK } from '../networks';
 import * as bscript from '../script';
+import { typeforce as typef } from '../types';
 import { Payment, PaymentOpts, Stack } from './index';
 import * as lazy from './lazy';
 
-const typef = require('typeforce');
 const OPS = bscript.OPS;
 
 function stacksEqual(a: Buffer[], b: Buffer[]): boolean {
@@ -29,7 +29,7 @@ export function p2data(a: Payment, opts?: PaymentOpts): Payment {
   );
 
   const network = a.network || BITCOIN_NETWORK;
-  const o = { network } as Payment;
+  const o = { name: 'embed', network } as Payment;
 
   lazy.prop(o, 'output', () => {
     if (!a.data) return;
