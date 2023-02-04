@@ -49,17 +49,11 @@ class Transaction {
   static fromBuffer(buffer, _NO_STRICT) {
     const bufferReader = new bufferutils_1.BufferReader(buffer);
     const tx = new Transaction();
-<<<<<<< HEAD
     tx.version = readInt32();
     //tx time required for Radium
     tx.time = readUInt32();
     const marker = buffer.readUInt8(offset);
     const flag = buffer.readUInt8(offset + 1);
-=======
-    tx.version = bufferReader.readInt32();
-    const marker = bufferReader.readUInt8();
-    const flag = bufferReader.readUInt8();
->>>>>>> addComplexScript
     let hasWitnesses = false;
     if (
       marker === Transaction.ADVANCED_TRANSACTION_MARKER &&
@@ -461,20 +455,6 @@ class Transaction {
     tbuffer = Buffer.allocUnsafe(156 + varSliceSize(prevOutScript));
     bufferWriter = new bufferutils_1.BufferWriter(tbuffer, 0);
     const input = this.ins[inIndex];
-<<<<<<< HEAD
-    writeUInt32(this.version);
-    writeUInt32(this.time);
-    writeSlice(hashPrevouts);
-    writeSlice(hashSequence);
-    writeSlice(input.hash);
-    writeUInt32(input.index);
-    writeVarSlice(prevOutScript);
-    writeUInt64(value);
-    writeUInt32(input.sequence);
-    writeSlice(hashOutputs);
-    writeUInt32(this.locktime);
-    writeUInt32(hashType);
-=======
     bufferWriter.writeInt32(this.version);
     bufferWriter.writeSlice(hashPrevouts);
     bufferWriter.writeSlice(hashSequence);
@@ -486,7 +466,6 @@ class Transaction {
     bufferWriter.writeSlice(hashOutputs);
     bufferWriter.writeUInt32(this.locktime);
     bufferWriter.writeUInt32(hashType);
->>>>>>> addComplexScript
     return bcrypto.hash256(tbuffer);
   }
   getHash(forWitness) {
@@ -514,59 +493,6 @@ class Transaction {
     typeforce(types.tuple(types.Number, [types.Buffer]), arguments);
     this.ins[index].witness = witness;
   }
-<<<<<<< HEAD
-  __byteLength(_ALLOW_WITNESS) {
-    const hasWitnesses = _ALLOW_WITNESS && this.hasWitnesses();
-    return (
-      (hasWitnesses ? 14 : 12) +
-      varuint.encodingLength(this.ins.length) +
-      varuint.encodingLength(this.outs.length) +
-      this.ins.reduce((sum, input) => {
-        return sum + 40 + varSliceSize(input.script);
-      }, 0) +
-      this.outs.reduce((sum, output) => {
-        return sum + 8 + varSliceSize(output.script);
-      }, 0) +
-      (hasWitnesses
-        ? this.ins.reduce((sum, input) => {
-            return sum + vectorSize(input.witness);
-          }, 0)
-        : 0)
-    );
-  }
-  __toBuffer(buffer, initialOffset, _ALLOW_WITNESS) {
-    if (!buffer) buffer = Buffer.allocUnsafe(this.__byteLength(_ALLOW_WITNESS));
-    let offset = initialOffset || 0;
-    function writeSlice(slice) {
-      offset += slice.copy(buffer, offset);
-    }
-    function writeUInt8(i) {
-      offset = buffer.writeUInt8(i, offset);
-    }
-    function writeUInt32(i) {
-      offset = buffer.writeUInt32LE(i, offset);
-    }
-    function writeInt32(i) {
-      offset = buffer.writeInt32LE(i, offset);
-    }
-    function writeUInt64(i) {
-      offset = bufferutils.writeUInt64LE(buffer, i, offset);
-    }
-    function writeVarInt(i) {
-      varuint.encode(i, buffer, offset);
-      offset += varuint.encode.bytes;
-    }
-    function writeVarSlice(slice) {
-      writeVarInt(slice.length);
-      writeSlice(slice);
-    }
-    function writeVector(vector) {
-      writeVarInt(vector.length);
-      vector.forEach(writeVarSlice);
-    }
-    writeInt32(this.version);
-    writeUInt32(this.time);
-=======
   __toBuffer(buffer, initialOffset, _ALLOW_WITNESS = false) {
     if (!buffer) buffer = Buffer.allocUnsafe(this.byteLength(_ALLOW_WITNESS));
     const bufferWriter = new bufferutils_1.BufferWriter(
@@ -574,7 +500,6 @@ class Transaction {
       initialOffset || 0,
     );
     bufferWriter.writeInt32(this.version);
->>>>>>> addComplexScript
     const hasWitnesses = _ALLOW_WITNESS && this.hasWitnesses();
     if (hasWitnesses) {
       bufferWriter.writeUInt8(Transaction.ADVANCED_TRANSACTION_MARKER);
