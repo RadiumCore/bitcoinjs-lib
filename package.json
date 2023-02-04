@@ -1,13 +1,7 @@
 {
-<<<<<<< HEAD
-  "name": "radiumjs-lib",
-  "version": "5.0.5",
-  "description": "Client-side Radium JavaScript library",
-=======
   "name": "bitcoinjs-lib",
   "version": "6.0.1",
   "description": "Client-side Bitcoin JavaScript library",
->>>>>>> addComplexScript
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "engines": {
