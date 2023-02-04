@@ -49,17 +49,11 @@ class Transaction {
   static fromBuffer(buffer, _NO_STRICT) {
     const bufferReader = new bufferutils_1.BufferReader(buffer);
     const tx = new Transaction();
-<<<<<<< HEAD
     tx.version = readInt32();
     //tx time required for Radium
     tx.time = readUInt32();
     const marker = buffer.readUInt8(offset);
     const flag = buffer.readUInt8(offset + 1);
-=======
-    tx.version = bufferReader.readInt32();
-    const marker = bufferReader.readUInt8();
-    const flag = bufferReader.readUInt8();
->>>>>>> addComplexScript
     let hasWitnesses = false;
     if (
       marker === Transaction.ADVANCED_TRANSACTION_MARKER &&
